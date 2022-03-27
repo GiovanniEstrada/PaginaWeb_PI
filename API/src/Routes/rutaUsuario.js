@@ -1,6 +1,7 @@
 const express = require('express');
 const mysqlConnection = require('../database');
 const router = express.Router();
+
 // CURSOS #############################################################
 //Obtener el nombre de todos los cursos
 router.get('/VerUsuarios',(req, res)=>{
