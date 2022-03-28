@@ -4,6 +4,7 @@ const router = express.Router();
 
 // CURSOS #############################################################
 //Obtener el nombre de todos los cursos
+
 router.get('/VerPublicacion',(req, res)=>{
     mysqlConnection.query('SELECT * FROM publicacion', (err,rows,fields)=>{
         if(!err){
@@ -15,7 +16,7 @@ router.get('/VerPublicacion',(req, res)=>{
 });
 
 router.post('/NuevaPublicacion',(req, res)=>{
-    mysqlConnection.query('INSERT INTO publicacion (fecha, usuario, curso, catedratico, mensajePublicacion) SET ?', req.body, (err,rows,fields)=>{
+    mysqlConnection.query('INSERT INTO publicacion SET ?', req.body, (err,rows,fields)=>{
         if(!err){
             res.send("Publicacion añadida");
         } else {
@@ -23,6 +24,7 @@ router.post('/NuevaPublicacion',(req, res)=>{
         }
     });
 });
+
 
 router.put('/UpdatePublicacion',(req, res)=>{
     const id = req.body.id;

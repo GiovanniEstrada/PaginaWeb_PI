@@ -14,6 +14,7 @@ app.use(cors());
 app.use(require('./Routes/rutaCurso'));
 app.use(require('./Routes/rutaUsuario'));
 app.use(require('./Routes/rutaComentarios'));
+app.use(require('./Routes/rutaPublicaciones'));
 
 //Start server
 app.listen(app.get('port'), () => {
