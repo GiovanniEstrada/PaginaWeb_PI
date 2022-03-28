@@ -43,7 +43,6 @@ class inicioSesion extends Component {
         if (rawResponse.status == 200) {
             console.log(response);
             window.alert(`Has iniciado sesion como: ${response.nombre}`);
-            const redireccion = "http://localhost:3000/Publicaciones";
         } else {
             window.alert("Usuario y/o Contraseña incorrectos");
         }
@@ -71,14 +70,14 @@ class inicioSesion extends Component {
                     <label className="form-label">Contraseña</label>
                     <input type="password" name='pass' onChange={this.handleChange} className="form-control" id="exampleInputPassword1" />
                 </div>
-                <a type="submit" className="btn btn-primary" onClick={() => this.iniciar()}>Iniciar Sesion</a>
+                <a type="submit" className="btn btn-primary" onClick={() => this.iniciar()} href = "http://localhost:3000/DatosPersonales">Iniciar Sesion</a>
                 <div>
                     <a href="http://localhost:3000/Registrate">
                         Registrate
                     </a>
                 </div>
                 <div>
-                    <a href="http://localhost:3000/Forgot">
+                    <a href="http://localhost:3000/Recuperar">
                         ¿Has olvidado tu contraseña?
                     </a>
                 </div>

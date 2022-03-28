@@ -12,7 +12,8 @@ class ModalPub extends Component {
             usuario: '',
             curso: '',
             catedratico: '',
-            mensajePublicacion: ''
+            mensajePublicacion: '',
+            id: 'null'
         }
     }
 
@@ -37,11 +38,12 @@ class ModalPub extends Component {
                 usuario: this.state.form.usuario,
                 curso: this.state.form.curso,
                 catedratico: this.state.form.catedratico,
-                mensajePublicacion: this.state.form.mensajePublicacion
+                mensajePublicacion: this.state.form.mensajePublicacion,
+                id: null
             })
         })
             .then((response) => {
-                debugger
+
                 window.alert("Se ha subido tu Publicación");
             })
             .catch(error => {
@@ -57,7 +59,7 @@ class ModalPub extends Component {
             <form className="row g-3">
                 <nav className="navbar navbar-dark bg-secondary">
                     <div className="container">
-                        <a className="navbar-brand" href="#!">
+                        <a className="navbar-brand" href="http://localhost:3000/Publicaciones">
                             Publicacion
                         </a>
                     </div>
@@ -83,7 +85,7 @@ class ModalPub extends Component {
                     <input type="text" name='fecha' onChange={this.handleChange} className="form-control" id="inputCity" placeholder="YY-MM-DD" />
                 </div>
                 <div className="col-12">
-                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success" href='http://localhost:3000/'>Registrarse</button>
+                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success" href='http://localhost:3000/Publicaciones'>Registrarse</button>
                 </div>
             </form>
         );
