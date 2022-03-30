@@ -15,6 +15,7 @@ app.use(require('./Routes/rutaCurso'));
 app.use(require('./Routes/rutaUsuario'));
 app.use(require('./Routes/rutaComentarios'));
 app.use(require('./Routes/rutaPublicaciones'));
+app.use(require('./Routes/rutaAprobados'));
 
 //Start server
 app.listen(app.get('port'), () => {
