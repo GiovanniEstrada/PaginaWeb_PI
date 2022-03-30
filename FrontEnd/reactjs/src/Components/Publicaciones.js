@@ -1,7 +1,25 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
 class Publicaciones extends Component {
 
+    state = {
+        form: {
+            tipo: '',
+            filtro: ''
+        }
+    }
+
+
+
+    handleChange = async e => {
+        await this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(this.state.form);
+    }
 
     Imprimir = async () => {
         let rawResponse = await fetch("http://localhost:4000/VerPublicacion", {
@@ -30,45 +48,77 @@ class Publicaciones extends Component {
                 <td>${data[i].catedratico}</td>
                 <td>${data[i].mensajePublicacion}</td>
                 <td>${data[i].fecha}</td>
-                <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios/id=${data[i].id}">Comentario</a></td>
+                <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios?reg=${this.getParameter("reg")}&id=${data[i].id}">Comentario</a></td>
                 </tr>`
         }
         document.getElementById('pubTable').innerHTML = body;
     }
 
-    MoverPublicacion = (data, i) =>{
+    MoverPublicacion = (data, i) => {
         console.log(data[i].id)
-        
+
+    }
+
+    //Variable con parametro del URL
+    getParameter = (parametroN) => {
+        let parametro = new URLSearchParams(window.location.search);
+        return parametro.get(parametroN);
+    }
+
+    //Link con registro academico del usuario
+    regLink = this.getParameter("reg");
+    PubLink = async () => {
+        window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
+    }
+    NPubLink = async () => {
+        window.location.replace("http://localhost:3000/ModalPublicacion?reg=" + this.regLink);
+    }
+
+    DatosLink = async () => {
+        window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
     }
 
     render() {
         return (
 
             <form>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="http://localhost:3000/Publicaciones">Area de Publicaciones</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <b className="navbar-brand" href="" >Publicaciones</b>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="http://localhost:3000/Publicaciones">Publicaciones</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="http://localhost:3000/DatosPersonales">Datos Personales</a>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <a className="nav-link active" onClick={() => this.DatosLink()} href>Datos Personales</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
-                <a type="button" class="btn btn-success" href="http://localhost:3000/ModalPublicacion">Añadir Nueva Publicación</a>
-                <h1>    </h1>
-                <button type="button" class="btn btn-success" onClick={()=> this.Imprimir()} >Cargar Publicaciones</button>
+                <div>
+                    <a type="button" class="btn btn-success" onClick={() => this.NPubLink()} href>Añadir Nueva Publicación</a>
+                    <h1>    </h1>
+                    <button type="button" class="btn btn-success" onClick={() => this.Imprimir()} >Cargar Publicaciones</button>
+                    <h1>    </h1>
+                </div>
+                <div class="dropdown" >
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filtrar Por
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <input name = "tipo" onChange={this.handleChange}/>
+                    </ul>
+                    <h1>    </h1>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Escribir el caracter a filtrar" name = "filtro" onChange={this.handleChange} aria-label="Search"/>
+                            <button class="btn btn-outline-success" type="submit">Filtrar</button>
+                    </form>
+                </div>
 
                 <table class="table table-striped">
-                        
+
                     <thead>
                         <tr>
                             <th scope="col">Usuario</th>

@@ -1,3 +1,4 @@
+import { click } from '@testing-library/user-event/dist/click';
 import React, { Component } from 'react';
 
 //Ruta Acceder a la peticion get de Nuestra base de datos
@@ -12,12 +13,8 @@ class Personales extends Component {
 
     //Link con registro academico del usuario
     regLink = this.getParameter("reg");
-    PubLink = async () => {
-        window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
-    }
-
-    CursoLink = async () => {
-        window.location.replace("http://localhost:3000/AñadirCurso?reg=" + this.regLink);
+    DatosLink = async () => {
+        window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
     }
 
     // Generar datos sobre el usuario
@@ -55,9 +52,34 @@ class Personales extends Component {
         document.getElementById('idTableD').innerHTML = body;
     }
 
-    //Generar datos sobre cursos aprobados
+    //Añadir cursos a el usuario
+    GuardarCurso = async (registro, codigo, nombre, creditos) => {
+        alert("Dentro de GuardarCurso")
+        let rawResponse = await fetch("http://localhost:4000/VerCursos", {
+            method: "GET",
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                registro: registro,
+                codigo: codigo,
+                nombre: nombre,
+                creditos: creditos
+            })
+        }
+        )
+        let response = await rawResponse.json()
+
+        if (rawResponse.status == 200) {
+            console.log(response);
+            window.alert("Se ha añadido el curso a la tabla de cursos aprobados")
+        } else {
+            window.alert("Error al cargar los cursos");
+        }
+
+    }
+
+    //Generar tabla con todos los cursos
     ImprimirCursos = async () => {
-        let rawResponse = await fetch("http://localhost:4000/VerAprobados", {
+        let rawResponse = await fetch("http://localhost:4000/VerCursos", {
             method: "GET",
             headers: { 'Content-type': 'application/json' }
         }
@@ -73,18 +95,16 @@ class Personales extends Component {
 
     }
 
-    generarTablaC = (data) => {
+    generarTablaC = async (data) => {
         console.log(data)
         let body = ''
         for (let i = 0; i < data.length; i++) {
-            if (data[i].registro == this.regLink) {
-                body += `<tr>
+            body += `<tr>
                 <td>${data[i].codigo}</td>
                 <td>${data[i].nombre}</td>
                 <td>${data[i].creditos}</td>
+                <td><a type="button" class="btn btn-success" ${onclick= "this.GuardarCurso(this.regLink, data[i].codigo, data[i].nombre, data[i].creditos);"} >Añadir</a>
                 </tr>`
-            }
-
         }
         document.getElementById('idTableC').innerHTML = body;
     }
@@ -92,44 +112,24 @@ class Personales extends Component {
     render() {
         return (
             <form>
-
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href>Datos de Usuario</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href="" >Cursos Ingenieria en Ciencias y Sistemas</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a className="nav-link active" aria-current="page" onClick={() => this.PubLink()} href>Publicaciones</a>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <a className="nav-link active" aria-current="page" onClick={() => this.DatosLink()} href>Volver</a>
                                 </li>
                             </ul>
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search" />
-                                <button class="btn btn-outline-success" type="submit">Buscar</button>
-                            </form>
                         </div>
                     </div>
                 </nav>
-
-                <button type="button" class="btn btn-success" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Registro Academico</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Fecha de Nacimiento</th>
-                        </tr>
-                    </thead>
-                    <tbody id="idTableD">
-                    </tbody>
-                </table>
                 <h1>    </h1>
                 <tr>
                     <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
-                    <button type="button" class="btn btn-primary" onClick={() => this.CursoLink()} >Agregar curso</button>
                 </tr>
                 <table class="table">
                     <thead>
@@ -137,6 +137,7 @@ class Personales extends Component {
                             <th scope="col">Codigo</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Creditos</th>
+                            <th scope="col">Añadir</th>
                         </tr>
                     </thead>
                     <tbody id="idTableC">

@@ -39,15 +39,21 @@ class inicioSesion extends Component {
         }
         )
         let response = await rawResponse.json()
-
+        
         if (rawResponse.status == 200) {
+            debugger
             console.log(response);
+            this.BotonLink(response);
             window.alert(`Has iniciado sesion como: ${response.nombre}`);
         } else {
-            window.alert("Usuario y/o Contraseña incorrectos");
+            alert("Usuario y/o Contraseña incorrectos");
+            window.location.reload();
         }
+    }
+    //URL con parametro del registro academico
+    BotonLink = (response) => {
 
-
+        window.location.href = "http://localhost:3000/DatosPersonales?reg="+ response.registro;
     }
 
     render() {
@@ -70,7 +76,7 @@ class inicioSesion extends Component {
                     <label className="form-label">Contraseña</label>
                     <input type="password" name='pass' onChange={this.handleChange} className="form-control" id="exampleInputPassword1" />
                 </div>
-                <a type="submit" className="btn btn-primary" onClick={() => this.iniciar()} href = "http://localhost:3000/DatosPersonales">Iniciar Sesion</a>
+                <button type="submit" className="btn btn-primary" onClick={() => this.iniciar()} >Iniciar Sesión</button>
                 <div>
                     <a href="http://localhost:3000/Registrate">
                         Registrate
