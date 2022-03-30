@@ -4,6 +4,22 @@ import React, { Component } from 'react';
 
 class Personales extends Component {
 
+    state = {
+        form: {
+            user: '',
+        }
+    }
+
+    handleChange = async e => {
+        await this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(this.state.form);
+    }
+
     //Variable con parametro del URL
     getParameter = (parametroN) => {
         let parametro = new URLSearchParams(window.location.search);
@@ -12,12 +28,21 @@ class Personales extends Component {
 
     //Link con registro academico del usuario
     regLink = this.getParameter("reg");
+    NameLink = this.getParameter("user");
     PubLink = async () => {
         window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
     }
 
     CursoLink = async () => {
         window.location.replace("http://localhost:3000/AñadirCurso?reg=" + this.regLink);
+    }
+
+    UserLink = async () => {
+        if (this.state.form.user == this.regLink) {
+            window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
+        } else {
+            window.location.replace("http://localhost:3000/Perfil?reg=" + this.regLink + "&user=" + this.state.form.user);
+        }
     }
 
     // Generar datos sobre el usuario
@@ -106,8 +131,8 @@ class Personales extends Component {
                                 </li>
                             </ul>
                             <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search" />
-                                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                                <input class="form-control me-2" name="user" onChange={this.handleChange} type="search" placeholder="Buscar Usuario" aria-label="Search" />
+                                <button class="btn btn-outline-success" type="button" onClick={() => this.UserLink()} href>Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -129,7 +154,7 @@ class Personales extends Component {
                 <h1>    </h1>
                 <tr>
                     <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
-                    <button type="button" class="btn btn-primary" onClick={() => this.CursoLink()} >Agregar curso</button>
+                    <button type="button" class="btn btn-success" onClick={() => this.CursoLink()} href>Añadir Curso</button>
                 </tr>
                 <table class="table">
                     <thead>

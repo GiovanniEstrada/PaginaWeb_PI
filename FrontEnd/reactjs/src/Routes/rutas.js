@@ -4,6 +4,7 @@ import cursos from '../Components/Cursos';
 import Register from '../Components/Register';
 import Recuperar from '../Components/Recuperar';
 import Personales from '../Components/DatosPersonales';
+import Perfil from '../Components/Perfiles';
 import Publicaciones from '../Components/Publicaciones';
 import Comentarios from '../Components/Comentarios';
 import ModalPub from '../Components/Modal/ModalP';
@@ -21,6 +22,7 @@ function Rutas() {
       <Route exact path = '/Registrate' component={Register}/>
       <Route exact path = '/Recuperar' component={Recuperar}/>
       <Route exact path = '/DatosPersonales' component={Personales}/>
+      <Route exact path = '/Perfil' component={Perfil}/>
       <Route exact path = '/Publicaciones' component={Publicaciones}/>
       <Route exact path = '/Comentarios' component={Comentarios}/>
       <Route exact path = '/ModalPublicacion' component={ModalPub}/>

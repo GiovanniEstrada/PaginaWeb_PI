@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 
 class Publicaciones extends Component {
 
@@ -8,7 +8,6 @@ class Publicaciones extends Component {
             filtro: ''
         }
     }
-
 
 
     handleChange = async e => {
@@ -58,14 +57,59 @@ class Publicaciones extends Component {
         console.log(data[i].id)
 
     }
+    //Filtrar---------------------------------------------------------------------------
 
-    //Variable con parametro del URL
+    GetFiltro = async () => {
+        let rawResponse = await fetch("http://localhost:4000/VerPublicacion", {
+            method: "GET",
+            headers: { 'Content-type': 'application/json' }
+        }
+        )
+        let response = await rawResponse.json()
+
+        if (rawResponse.status == 200) {
+            console.log(response);
+            this.tablaFiltrada(response);
+        } else {
+            window.alert("Error al cargar la");
+        }
+
+    }
+
+    tablaFiltrada = (data) => {
+        console.log(data)
+        let body = ''
+        for (let i = 0; i < data.length; i++) {
+            if(this.state.form.tipo == "Curso" && data[i].curso == this.state.form.filtro){
+            body += `<tr>
+                <td>${data[i].usuario}</td>
+                <td>${data[i].curso}</td>
+                <td>${data[i].catedratico}</td>
+                <td>${data[i].mensajePublicacion}</td>
+                <td>${data[i].fecha}</td>
+                <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios?reg=${this.getParameter("reg")}&id=${data[i].id}">Comentario</a></td>
+                </tr>`
+            }else if(this.state.form.tipo == "Catedratico" && data[i].catedratico == this.state.form.filtro){
+                body += `<tr>
+                    <td>${data[i].usuario}</td>
+                    <td>${data[i].curso}</td>
+                    <td>${data[i].catedratico}</td>
+                    <td>${data[i].mensajePublicacion}</td>
+                    <td>${data[i].fecha}</td>
+                    <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios?reg=${this.getParameter("reg")}&id=${data[i].id}">Comentario</a></td>
+                    </tr>`
+                }
+        }
+        document.getElementById('pubTable').innerHTML = body;
+    }
+
+    //Variable con parametro del URL----------------------------------------------------
     getParameter = (parametroN) => {
         let parametro = new URLSearchParams(window.location.search);
         return parametro.get(parametroN);
     }
 
-    //Link con registro academico del usuario
+    //Link con registro academico del usuario---------------------------------------------
     regLink = this.getParameter("reg");
     PubLink = async () => {
         window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
@@ -113,7 +157,7 @@ class Publicaciones extends Component {
                     <h1>    </h1>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Escribir el caracter a filtrar" name = "filtro" onChange={this.handleChange} aria-label="Search"/>
-                            <button class="btn btn-outline-success" type="submit">Filtrar</button>
+                            <button class="btn btn-success" onClick={() => this.GetFiltro()} type="button">Filtrar</button>
                     </form>
                 </div>
 
