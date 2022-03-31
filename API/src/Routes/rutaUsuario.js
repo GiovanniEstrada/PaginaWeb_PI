@@ -35,6 +35,27 @@ router.post('/auth',(req, res)=>{
     });
 });
 
+// Generar Usuario
+router.post('/Usuario',(req, res)=>{
+    const {reg} = req.body;
+    const values = [reg]
+    mysqlConnection.query('SELECT * FROM registro WHERE registro = ?', values,(err,result)=>{
+        if(err){
+            res.status(500).send(err);
+            console.log(err);
+        } else {
+            if(result.length>0){
+                res.status(200).send(result[0]);
+                console.log(result.json);
+            }
+            else {
+                res.status(400).send("El usuario no existe");
+            }
+            
+        }
+    });
+});
+
 //Recuperar Contraseña---------------------------------
 router.post('/recuperar',(req, res)=>{
     const {registro, correo} = req.body;
