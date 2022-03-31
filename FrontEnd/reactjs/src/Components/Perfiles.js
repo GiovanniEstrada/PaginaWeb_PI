@@ -138,7 +138,7 @@ class Personales extends Component {
                     </div>
                 </nav>
 
-                <button type="button" class="btn btn-success" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
+                <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
                 <table class="table">
                     <thead>
                         <tr>
@@ -153,8 +153,8 @@ class Personales extends Component {
                 </table>
                 <h1>    </h1>
                 <tr>
-                    <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
-                    <button type="button" class="btn btn-primary" onClick={() => this.CursoLink()} >Agregar curso</button>
+                    <button type="button" class="btn btn-light" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
+                    <button type="button" class="btn btn-dark" disabled>Añadir Curso</button>
                 </tr>
                 <table class="table">
                     <thead>

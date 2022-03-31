@@ -53,7 +53,7 @@ class inicioSesion extends Component {
     //URL con parametro del registro academico
     BotonLink = (response) => {
 
-        window.location.href = "http://localhost:3000/DatosPersonales?reg="+ response.registro;
+        window.location.replace("http://localhost:3000/DatosPersonales?reg="+ response.registro);
     }
 
     render() {

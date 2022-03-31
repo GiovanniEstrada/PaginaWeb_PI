@@ -75,9 +75,9 @@ class Publicaciones extends Component {
                         </div>
                     </div>
                 </nav>
-                <button type="button" class="btn btn-success" onClick={() => this.NComLink()} href>Añadir Nuevo Comentario</button>
+                <button type="button" class="btn btn-dark" onClick={() => this.NComLink()} href>Añadir Nuevo Comentario</button>
                 <h1>    </h1>
-                <button type="button" class="btn btn-success" onClick={() => this.Imprimir()}>Cargar Comentarios</button>
+                <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()}>Cargar Comentarios</button>
 
                 <table class="table table-striped">
 

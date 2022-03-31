@@ -45,6 +45,7 @@ class Registrar extends Component {
         .then((response) => {
             debugger
             window.alert("Usuario Creado de Forma Exitosa");
+            window.location.replace("http://localhost:3000/");
         })
         .catch(error => {
             console.log(error);

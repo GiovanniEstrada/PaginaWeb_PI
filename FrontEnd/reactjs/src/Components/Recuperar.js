@@ -41,6 +41,7 @@ class inicioSesion extends Component {
         if (rawResponse.status == 200) {
             console.log(response);
             window.alert(`La contraseña de tu cuenta es: ${response.pass}`);
+            window.location.replace("http://localhost:3000/");
         } else {
             window.alert("Registro Academico y/o Correo incorrectos")
         }
@@ -68,7 +69,7 @@ class inicioSesion extends Component {
                     <label className="form-label">Correo Electronico</label>
                     <input type="emailHelp" name='correo' onChange={this.handleChange} className="form-control" id="exampleInputPassword1" />
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={() => this.iniciar()} href = "http://localhost:3000/Publicaciones">Recuperar</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.iniciar()} href>Recuperar</button>
             </form>
 
         );

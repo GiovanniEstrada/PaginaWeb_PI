@@ -80,8 +80,8 @@ class Publicaciones extends Component {
         console.log(data)
         let body = ''
         for (let i = 0; i < data.length; i++) {
-            if(this.state.form.tipo == "Curso" && data[i].curso == this.state.form.filtro){
-            body += `<tr>
+            if (this.state.form.tipo == 1 && data[i].curso == this.state.form.filtro) {
+                body += `<tr>
                 <td>${data[i].usuario}</td>
                 <td>${data[i].curso}</td>
                 <td>${data[i].catedratico}</td>
@@ -89,7 +89,7 @@ class Publicaciones extends Component {
                 <td>${data[i].fecha}</td>
                 <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios?reg=${this.getParameter("reg")}&id=${data[i].id}">Comentario</a></td>
                 </tr>`
-            }else if(this.state.form.tipo == "Catedratico" && data[i].catedratico == this.state.form.filtro){
+            } else if (this.state.form.tipo == 2 && data[i].catedratico == this.state.form.filtro) {
                 body += `<tr>
                     <td>${data[i].usuario}</td>
                     <td>${data[i].curso}</td>
@@ -98,7 +98,7 @@ class Publicaciones extends Component {
                     <td>${data[i].fecha}</td>
                     <td><a type="button" class="btn btn-info"  href="http://localhost:3000/Comentarios?reg=${this.getParameter("reg")}&id=${data[i].id}">Comentario</a></td>
                     </tr>`
-                }
+            }
         }
         document.getElementById('pubTable').innerHTML = body;
     }
@@ -138,26 +138,30 @@ class Publicaciones extends Component {
                                     <a className="nav-link active" onClick={() => this.DatosLink()} href>Datos Personales</a>
                                 </li>
                             </ul>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="btn btn-danger" aria-current="page" href = "http://localhost:3000/">Cerrar sesion</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
                 <div>
-                    <a type="button" class="btn btn-success" onClick={() => this.NPubLink()} href>Añadir Nueva Publicación</a>
+                    <a type="button" class="btn btn-dark" onClick={() => this.NPubLink()} href>Añadir Nueva Publicación</a>
                     <h1>    </h1>
-                    <button type="button" class="btn btn-success" onClick={() => this.Imprimir()} >Cargar Publicaciones</button>
+                    <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()} >Cargar Publicaciones</button>
                     <h1>    </h1>
                 </div>
                 <div class="dropdown" >
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        Filtrar Por
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <input name = "tipo" onChange={this.handleChange}/>
-                    </ul>
+                    <select name = "tipo" onChange={this.handleChange}class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option selected>Seleccione tipo de filtro</option>
+                        <option value="1">Curso</option>
+                        <option value="2">Catedratico</option>
+                    </select>
                     <h1>    </h1>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Escribir el caracter a filtrar" name = "filtro" onChange={this.handleChange} aria-label="Search"/>
-                            <button class="btn btn-success" onClick={() => this.GetFiltro()} type="button">Filtrar</button>
+                        <input class="form-control me-2" type="search" placeholder="Escribir el caracter a filtrar" name="filtro" onChange={this.handleChange} aria-label="Search" />
+                        <button class="btn btn-success" onClick={() => this.GetFiltro()} type="button">Filtrar</button>
                     </form>
                 </div>
 

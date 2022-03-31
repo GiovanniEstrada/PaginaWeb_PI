@@ -130,6 +130,11 @@ class Personales extends Component {
                                     <a className="nav-link active" aria-current="page" onClick={() => this.PubLink()} href>Publicaciones</a>
                                 </li>
                             </ul>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="btn btn-danger" aria-current="page" href = "http://localhost:3000/">Cerrar sesion</a>
+                                </li>
+                            </ul>
                             <form class="d-flex">
                                 <input class="form-control me-2" name="user" onChange={this.handleChange} type="search" placeholder="Buscar Usuario" aria-label="Search" />
                                 <button class="btn btn-outline-success" type="button" onClick={() => this.UserLink()} href>Buscar</button>
@@ -138,7 +143,8 @@ class Personales extends Component {
                     </div>
                 </nav>
 
-                <button type="button" class="btn btn-success" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
+                <div  class="shadow p-3 mb-5 bg-body rounded">
+                <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
                 <table class="table">
                     <thead>
                         <tr>
@@ -151,10 +157,12 @@ class Personales extends Component {
                     <tbody id="idTableD">
                     </tbody>
                 </table>
+                </div>
                 <h1>    </h1>
+                <div  class="shadow p-3 mb-5 bg-body rounded">
                 <tr>
-                    <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
-                    <button type="button" class="btn btn-success" onClick={() => this.CursoLink()} href>Añadir Curso</button>
+                    <button type="button" class="btn btn-secondary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
+                    <button type="button" class="btn btn-dark" onClick={() => this.CursoLink()} href>Añadir Curso</button>
                 </tr>
                 <table class="table">
                     <thead>
@@ -167,6 +175,7 @@ class Personales extends Component {
                     <tbody id="idTableC">
                     </tbody>
                 </table>
+                </div>
             </form>
 
         );

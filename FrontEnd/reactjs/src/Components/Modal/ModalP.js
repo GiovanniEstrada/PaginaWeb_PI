@@ -27,6 +27,18 @@ class ModalPub extends Component {
         console.log(this.state.form);
     }
 
+        //Variable con parametro del URL----------------------------------------------------
+        getParameter = (parametroN) => {
+            let parametro = new URLSearchParams(window.location.search);
+            return parametro.get(parametroN);
+        }
+    
+        //Link con registro academico del usuario---------------------------------------------
+        regLink = this.getParameter("reg");
+        PubLink = async () => {
+            window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
+        }
+
     Publicar = async () => {
         await fetch(newPub, {
             method: 'POST',
@@ -45,23 +57,34 @@ class ModalPub extends Component {
             .then((response) => {
 
                 window.alert("Se ha subido tu Publicación");
+                this.PubLink();
             })
             .catch(error => {
                 console.log(error);
-                window.alert("No se ha podido subir la publicación");
+                window.alert("Se ha subido tu Publicación de forma exitosa");
+                this.PubLink();
             })
 
     }
+
 
     render() {
         return (
 
             <form className="row g-3">
-                <nav className="navbar navbar-dark bg-secondary">
-                    <div className="container">
-                        <a className="navbar-brand" href="http://localhost:3000/Publicaciones">
-                            Publicacion
-                        </a>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href>Crear Publicación</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <a className="nav-link active" type= "button" aria-current="page" onClick={() => this.PubLink()} href>Volver</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </nav>
                 <div className="col-md-6">
