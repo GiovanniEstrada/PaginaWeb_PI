@@ -4,6 +4,7 @@ const router = express.Router();
 
 // CURSOS #############################################################
 //Obtener el nombre de todos los cursos
+
 router.get('/VerAprobados',(req, res)=>{
     mysqlConnection.query('SELECT * FROM aprobados', (err,rows,fields)=>{
         if(!err){
@@ -14,8 +15,9 @@ router.get('/VerAprobados',(req, res)=>{
     });
 });
 
+
 router.post('/NuevoAprobado',(req, res)=>{
-    mysqlConnection.query('INSERT INTO aprobados SET ?', req.body, (err,rows,fields)=>{
+    mysqlConnection.query('INSERT INTO aprobados SET ?', [req.body], (err,rows,fields)=>{
         if(!err){
             res.send("Course added");
         } else {
