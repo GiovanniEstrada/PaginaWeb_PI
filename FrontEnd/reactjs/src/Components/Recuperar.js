@@ -11,8 +11,6 @@ class inicioSesion extends Component {
         }
     }
 
-
-
     handleChange = async e => {
         await this.setState({
             form: {
@@ -22,7 +20,6 @@ class inicioSesion extends Component {
         })
         console.log(this.state.form);
     }
-
 
     iniciar = async () => {
         let rawResponse = await fetch("http://localhost:4000/recuperar", {
@@ -45,8 +42,6 @@ class inicioSesion extends Component {
         } else {
             window.alert("Registro Academico y/o Correo incorrectos")
         }
-
-
     }
 
     render() {
@@ -62,7 +57,7 @@ class inicioSesion extends Component {
                 </nav>
                 <div className='mb-3'>
                     <label className="form-label">Registro Academico</label>
-                    <input type="User" name='registro' onChange={this.handleChange} className="form-control" id="exampleInputEmail1"  />
+                    <input type="User" name='registro' onChange={this.handleChange} className="form-control" id="exampleInputEmail1" />
                     <div className="form-text"></div>
                 </div>
                 <div className='mb-3'>

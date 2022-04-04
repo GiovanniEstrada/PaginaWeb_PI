@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-
-//Ruta Acceder a la peticion get de Nuestra base de datos
-const auth = "http://localhost:4000/auth";
 
 class inicioSesion extends Component {
 
@@ -13,8 +9,6 @@ class inicioSesion extends Component {
         }
     }
 
-
-
     handleChange = async e => {
         await this.setState({
             form: {
@@ -24,7 +18,6 @@ class inicioSesion extends Component {
         })
         console.log(this.state.form);
     }
-
 
     iniciar = async () => {
         let rawResponse = await fetch("http://localhost:4000/auth", {
@@ -41,7 +34,6 @@ class inicioSesion extends Component {
         let response = await rawResponse.json()
         
         if (rawResponse.status == 200) {
-            debugger
             console.log(response);
             this.BotonLink(response);
             window.alert(`Has iniciado sesion como: ${response.nombre}`);
@@ -50,6 +42,7 @@ class inicioSesion extends Component {
             window.location.reload();
         }
     }
+    
     //URL con parametro del registro academico
     BotonLink = (response) => {
 
@@ -60,9 +53,10 @@ class inicioSesion extends Component {
         return (
 
             <form>
+                
                 <nav className="navbar navbar-dark bg-secondary">
                     <div className="container">
-                        <a className="navbar-brand" href="#!">
+                        <a className="navbar-brand" href>
                             Ingenieria en Ciencias y Sistemas
                         </a>
                     </div>
@@ -76,7 +70,7 @@ class inicioSesion extends Component {
                     <label className="form-label">Contraseña</label>
                     <input type="password" name='pass' onChange={this.handleChange} className="form-control" id="exampleInputPassword1" />
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={() => this.iniciar()} >Iniciar Sesión</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.iniciar()} href>Iniciar Sesión</button>
                 <div>
                     <a href="http://localhost:3000/Registrate">
                         Registrate

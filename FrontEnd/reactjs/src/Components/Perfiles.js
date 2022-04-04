@@ -20,6 +20,11 @@ class Personales extends Component {
         console.log(this.state.form);
     }
 
+    componentDidMount() {
+        this.ImprimirCursos();
+        this.ImprimirDatos();
+    }
+
     //Variable con parametro del URL
     getParameter = (parametroN) => {
         let parametro = new URLSearchParams(window.location.search);
@@ -33,13 +38,14 @@ class Personales extends Component {
         window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
     }
 
+    // Buscador de Usuarios
     UserLink = async () => {
         if (this.state.form.user == this.regLink) {
             window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
         } else {
             window.location.replace("http://localhost:3000/Perfil?reg=" + this.regLink + "&user=" + this.state.form.user);
         }
-        }
+    }
 
     CursoLink = async () => {
         window.location.replace("http://localhost:3000/AñadirCurso?reg=" + this.regLink);
@@ -60,7 +66,6 @@ class Personales extends Component {
         } else {
             window.alert("Error al cargar la");
         }
-
     }
 
     generarTablaD = (data) => {
@@ -131,14 +136,14 @@ class Personales extends Component {
                                 </li>
                             </ul>
                             <form class="d-flex">
-                                <input class="form-control me-2" name = "user" onChange={this.handleChange} type="search" placeholder="Buscar Usuario" aria-label="Search" />
+                                <input class="form-control me-2" name="user" onChange={this.handleChange} type="search" placeholder="Buscar Usuario" aria-label="Search" />
                                 <button class="btn btn-outline-success" onClick={() => this.UserLink()} type="button">Buscar</button>
                             </form>
                         </div>
                     </div>
                 </nav>
 
-                <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
+                <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Recargar Datos</button>
                 <table class="table">
                     <thead>
                         <tr>
@@ -153,7 +158,7 @@ class Personales extends Component {
                 </table>
                 <h1>    </h1>
                 <tr>
-                    <button type="button" class="btn btn-light" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
+                    <button type="button" class="btn btn-light" onClick={() => this.ImprimirCursos()} >Recargar Cursos</button>
                     <button type="button" class="btn btn-dark" disabled>Añadir Curso</button>
                 </tr>
                 <table class="table">

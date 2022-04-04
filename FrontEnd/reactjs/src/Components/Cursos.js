@@ -16,10 +16,9 @@ class Personales extends Component {
         window.location.replace("http://localhost:3000/DatosPersonales?reg=" + this.regLink);
     }
 
-    AñadirCurso = async (data, i) => {
-        this.GuardarCurso(this.regLink, data[i].codigo, data[i].nombre, data[i].creditos);
+    componentDidMount() {
+        this.ImprimirCursos();
     }
-
 
     // Generar datos sobre el usuario
     ImprimirDatos = async () => {
@@ -34,7 +33,7 @@ class Personales extends Component {
             console.log(response);
             this.generarTablaD(response);
         } else {
-            window.alert("Error al cargar la");
+            console.log("Error al cargar la tabla");
         }
 
     }
@@ -57,13 +56,13 @@ class Personales extends Component {
     }
 
     //Añadir cursos a el usuario
-    GuardarCurso = async (registro, codigo, nombre, creditos) => {
+    GuardarCurso = async (codigo, nombre, creditos) => {
         console.log("Dentro de Guardar")
         let rawResponse = await fetch("http://localhost:4000/NuevoAprobado", {
             method: "POST",
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                registro: registro,
+                registro: this.regLink,
                 codigo: codigo,
                 nombre: nombre,
                 creditos: creditos
@@ -103,23 +102,32 @@ class Personales extends Component {
         console.log(data)
         let body = ''
         for (let i = 0; i < data.length; i++) {
-            body += `<tr>
+            body += await `<tr>
                 <td>${data[i].codigo}</td>
                 <td>${data[i].nombre}</td>
                 <td>${data[i].creditos}</td>
-                <td><button id = "${i}" type="button" class="btn btn-warning" >Añadir</button></td>
+                <td><button id = ${data[i].codigo} type="button" class="btn btn-warning">Añadir</button></td>
                 </tr>`
         }
         document.getElementById('idTableC').innerHTML = body;
-    }
 
+        for (let i = 0; i < data.length; i++) {
+            const boton = document.getElementById(data[i].codigo);
+            boton.onclick = () => {
+                this.GuardarCurso(data[i].codigo, data[i].nombre, data[i].creditos)
+                alert("Se Ha añadido el curso " + data[i].nombre);
+            }
+
+
+        }
+    }
 
     render() {
         return (
             <form>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="" >Cursos Ingenieria en Ciencias y Sistemas</a>
+                        <a className="navbar-brand" href >Cursos Ingenieria en Ciencias y Sistemas</a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -134,7 +142,8 @@ class Personales extends Component {
                 </nav>
                 <h1>    </h1>
                 <tr>
-                    <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
+                    <button type="button" class="btn btn-primary" onClick={() => this.ImprimirCursos()} >Recargar Tabla</button>
+                    <button type="button" class="btn btn-primary" onClick={() => this.pruebas()} >Prueba ID</button>
                 </tr>
                 <table class="table">
                     <thead>

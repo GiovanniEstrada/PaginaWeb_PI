@@ -26,7 +26,7 @@ class Personales extends Component {
         return parametro.get(parametroN);
     }
 
-    //Link con registro academico del usuario
+    //Link con registro academico del usuario y nombre
     regLink = this.getParameter("reg");
     NameLink = this.getParameter("user");
     PubLink = async () => {
@@ -43,6 +43,11 @@ class Personales extends Component {
         } else {
             window.location.replace("http://localhost:3000/Perfil?reg=" + this.regLink + "&user=" + this.state.form.user);
         }
+    }
+
+    componentDidMount() {
+        this.ImprimirDatos();
+        this.ImprimirCursos();
     }
 
     // Generar datos sobre el usuario
@@ -132,7 +137,7 @@ class Personales extends Component {
                             </ul>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="btn btn-danger" aria-current="page" href = "http://localhost:3000/">Cerrar sesion</a>
+                                    <a class="btn btn-danger" aria-current="page" href="http://localhost:3000/">Cerrar sesion</a>
                                 </li>
                             </ul>
                             <form class="d-flex">
@@ -143,38 +148,38 @@ class Personales extends Component {
                     </div>
                 </nav>
 
-                <div  class="shadow p-3 mb-5 bg-body rounded">
-                <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Cargar Datos</button>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Registro Academico</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Fecha de Nacimiento</th>
-                        </tr>
-                    </thead>
-                    <tbody id="idTableD">
-                    </tbody>
-                </table>
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <button type="button" class="btn btn-dark" onClick={() => this.ImprimirDatos()} >Recargar Datos</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre Completo</th>
+                                <th scope="col">Registro Academico</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idTableD">
+                        </tbody>
+                    </table>
                 </div>
                 <h1>    </h1>
-                <div  class="shadow p-3 mb-5 bg-body rounded">
-                <tr>
-                    <button type="button" class="btn btn-secondary" onClick={() => this.ImprimirCursos()} >Ver Cursos</button>
-                    <button type="button" class="btn btn-dark" onClick={() => this.CursoLink()} href>Añadir Curso</button>
-                </tr>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Creditos</th>
-                        </tr>
-                    </thead>
-                    <tbody id="idTableC">
-                    </tbody>
-                </table>
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <tr>
+                        <button type="button" class="btn btn-secondary" onClick={() => this.ImprimirCursos()} >Racargar Cursos</button>
+                        <button type="button" class="btn btn-dark" onClick={() => this.CursoLink()} href>Añadir Curso</button>
+                    </tr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Creditos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idTableC">
+                        </tbody>
+                    </table>
                 </div>
             </form>
 

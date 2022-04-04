@@ -20,6 +20,10 @@ class Publicaciones extends Component {
         window.location.replace("http://localhost:3000/ModalComentarios?reg=" + this.regLink + "&id=" + this.idLink);
     }
 
+    componentDidMount() {
+        this.Imprimir();
+    }
+
     Imprimir = async () => {
         let rawResponse = await fetch("http://localhost:4000/VerComentario", {
             method: "GET",
@@ -33,7 +37,6 @@ class Publicaciones extends Component {
         } else {
             window.alert("Usuario y/o Contraseña incorrectos");
         }
-
     }
 
     generarTabla = (data) => {
@@ -49,11 +52,6 @@ class Publicaciones extends Component {
             }
         }
         document.getElementById('comTable').innerHTML = body;
-    }
-
-    MoverPublicacion = (data, i) => {
-        console.log(data[i].id)
-
     }
 
     render() {
@@ -77,7 +75,7 @@ class Publicaciones extends Component {
                 </nav>
                 <button type="button" class="btn btn-dark" onClick={() => this.NComLink()} href>Añadir Nuevo Comentario</button>
                 <h1>    </h1>
-                <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()}>Cargar Comentarios</button>
+                <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()}>Recargar Comentarios</button>
 
                 <table class="table table-striped">
 

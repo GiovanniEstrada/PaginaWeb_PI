@@ -49,15 +49,15 @@ class ModalPub extends Component {
             })
         })
             .then((response) => {
-                debugger
-                this.ComLink();
                 window.alert("Se ha subido tu comentario");
+                this.ComLink();
+
             })
             .catch(error => {
-                debugger
-                this.ComLink();
                 console.log(error);
                 window.alert("Se ha publicado el comentario de forma satisfactoria");
+                this.ComLink();
+
             })
 
     }
@@ -87,7 +87,7 @@ class ModalPub extends Component {
                     <input type="Comentario" name='comentario' onChange={this.handleChange} className="form-control" id="inputPassword4" />
                 </div>
                 <div className="col-12">
-                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success">Publicar Comentario</button>
+                    <button type="button" onClick={() => this.Publicar()} className="btn btn-success" href>Publicar Comentario</button>
                 </div>
             </form>
         );

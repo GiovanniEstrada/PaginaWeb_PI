@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 //Ruta Acceder a la peticion get de Nuestra base de datos
 const newPub = "http://localhost:4000/NuevaPublicacion";
 
@@ -27,17 +26,17 @@ class ModalPub extends Component {
         console.log(this.state.form);
     }
 
-        //Variable con parametro del URL----------------------------------------------------
-        getParameter = (parametroN) => {
-            let parametro = new URLSearchParams(window.location.search);
-            return parametro.get(parametroN);
-        }
-    
-        //Link con registro academico del usuario---------------------------------------------
-        regLink = this.getParameter("reg");
-        PubLink = async () => {
-            window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
-        }
+    //Variable con parametro del URL----------------------------------------------------
+    getParameter = (parametroN) => {
+        let parametro = new URLSearchParams(window.location.search);
+        return parametro.get(parametroN);
+    }
+
+    //Link con registro academico del usuario---------------------------------------------
+    regLink = this.getParameter("reg");
+    PubLink = async () => {
+        window.location.replace("http://localhost:3000/Publicaciones?reg=" + this.regLink);
+    }
 
     Publicar = async () => {
         await fetch(newPub, {
@@ -55,7 +54,6 @@ class ModalPub extends Component {
             })
         })
             .then((response) => {
-
                 window.alert("Se ha subido tu Publicación");
                 this.PubLink();
             })
@@ -81,7 +79,7 @@ class ModalPub extends Component {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <a className="nav-link active" type= "button" aria-current="page" onClick={() => this.PubLink()} href>Volver</a>
+                                    <a className="nav-link active" type="button" aria-current="page" onClick={() => this.PubLink()} href>Volver</a>
                                 </li>
                             </ul>
                         </div>
@@ -108,7 +106,7 @@ class ModalPub extends Component {
                     <input type="text" name='fecha' onChange={this.handleChange} className="form-control" id="inputCity" placeholder="YY-MM-DD" />
                 </div>
                 <div className="col-12">
-                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success" href='http://localhost:3000/Publicaciones'>Registrarse</button>
+                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success" href='http://localhost:3000/Publicaciones'>Publicar</button>
                 </div>
             </form>
         );

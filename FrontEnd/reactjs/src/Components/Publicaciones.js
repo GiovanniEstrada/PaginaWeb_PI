@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 
 class Publicaciones extends Component {
 
@@ -8,7 +8,6 @@ class Publicaciones extends Component {
             filtro: ''
         }
     }
-
 
     handleChange = async e => {
         await this.setState({
@@ -20,6 +19,9 @@ class Publicaciones extends Component {
         console.log(this.state.form);
     }
 
+    componentDidMount() {
+        this.Imprimir();
+    }
     Imprimir = async () => {
         let rawResponse = await fetch("http://localhost:4000/VerPublicacion", {
             method: "GET",
@@ -73,7 +75,6 @@ class Publicaciones extends Component {
         } else {
             window.alert("Error al cargar la");
         }
-
     }
 
     tablaFiltrada = (data) => {
@@ -140,7 +141,7 @@ class Publicaciones extends Component {
                             </ul>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="btn btn-danger" aria-current="page" href = "http://localhost:3000/">Cerrar sesion</a>
+                                    <a class="btn btn-danger" aria-current="page" href="http://localhost:3000/">Cerrar sesion</a>
                                 </li>
                             </ul>
                         </div>
@@ -149,11 +150,11 @@ class Publicaciones extends Component {
                 <div>
                     <a type="button" class="btn btn-dark" onClick={() => this.NPubLink()} href>Añadir Nueva Publicación</a>
                     <h1>    </h1>
-                    <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()} >Cargar Publicaciones</button>
+                    <button type="button" class="btn btn-secondary" onClick={() => this.Imprimir()} >Recargar Publicaciones</button>
                     <h1>    </h1>
                 </div>
                 <div class="dropdown" >
-                    <select name = "tipo" onChange={this.handleChange}class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <select name="tipo" onChange={this.handleChange} class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option selected>Seleccione tipo de filtro</option>
                         <option value="1">Curso</option>
                         <option value="2">Catedratico</option>
