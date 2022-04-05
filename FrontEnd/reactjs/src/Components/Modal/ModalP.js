@@ -39,6 +39,19 @@ class ModalPub extends Component {
     }
 
     Publicar = async () => {
+        let rawResponse = await fetch("http://localhost:4000/finduser", {
+            method: "POST",
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    "registro": this.regLink
+                }
+            )
+        }
+        )
+        let responseN = await rawResponse.json()
+        const nombre = responseN.nombre;
+        
         await fetch(newPub, {
             method: 'POST',
             headers: {
@@ -46,7 +59,7 @@ class ModalPub extends Component {
             },
             body: JSON.stringify({
                 fecha: this.state.form.fecha,
-                usuario: this.state.form.usuario,
+                usuario: nombre,
                 curso: this.state.form.curso,
                 catedratico: this.state.form.catedratico,
                 mensajePublicacion: this.state.form.mensajePublicacion,
@@ -65,6 +78,10 @@ class ModalPub extends Component {
 
     }
 
+    FindUser = async () => {
+        debugger;
+        
+    }
 
     render() {
         return (
@@ -86,10 +103,6 @@ class ModalPub extends Component {
                     </div>
                 </nav>
                 <div className="col-md-6">
-                    <label className="form-label">Usuario</label>
-                    <input type="usuario" name='usuario' onChange={this.handleChange} className="form-control" id="inputEmail4" />
-                </div>
-                <div className="col-md-6">
                     <label className="form-label">Curso</label>
                     <input type="curso" name='curso' onChange={this.handleChange} className="form-control" id="inputPassword4" />
                 </div>
@@ -106,7 +119,7 @@ class ModalPub extends Component {
                     <input type="text" name='fecha' onChange={this.handleChange} className="form-control" id="inputCity" placeholder="YY-MM-DD" />
                 </div>
                 <div className="col-12">
-                    <button type="submit" onClick={() => this.Publicar()} className="btn btn-success" href='http://localhost:3000/Publicaciones'>Publicar</button>
+                    <button type="button" onClick={() => this.Publicar()} className="btn btn-success" href>Publicar</button>
                 </div>
             </form>
         );

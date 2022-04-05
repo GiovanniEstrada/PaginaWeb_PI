@@ -37,6 +37,19 @@ class ModalPub extends Component {
     }
 
     Publicar = async () => {
+        let rawResponse = await fetch("http://localhost:4000/finduser", {
+            method: "POST",
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    "registro": this.regLink
+                }
+            )
+        }
+        )
+        let responseN = await rawResponse.json()
+        const nombre = responseN.nombre;
+
         await fetch(newCom, {
             method: 'POST',
             headers: {
@@ -44,7 +57,7 @@ class ModalPub extends Component {
             },
             body: JSON.stringify({
                 id: this.idLink,
-                usuario: this.state.form.usuario,
+                usuario: nombre,
                 comentario: this.state.form.comentario
             })
         })
@@ -78,10 +91,6 @@ class ModalPub extends Component {
                     </ul>
                     </div>
                 </nav>
-                <div className="col-md-6">
-                    <label className="form-label">Usuario</label>
-                    <input type="usuario" name='usuario' onChange={this.handleChange} className="form-control" id="inputEmail4" />
-                </div>
                 <div className="col-md-6">
                     <label className="form-label">Comentario</label>
                     <input type="Comentario" name='comentario' onChange={this.handleChange} className="form-control" id="inputPassword4" />
